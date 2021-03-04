@@ -4,12 +4,31 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<div class="jumbotron text-center">
-			<h2>Title agence</h2>
-			<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo officiis nemo est perferendis reiciendis quibusdam voluptatum suscipit magnam sapiente tempore tempora ea totam illum, similique corporis inventore. Ratione, deleniti saepe.</p>
-		</div>
+	<div class="jumbotron text-center">
+		<h2>Title agence</h2>
+		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo officiis nemo est perferendis reiciendis quibusdam voluptatum suscipit magnam sapiente tempore tempora ea totam illum, similique corporis inventore. Ratione, deleniti saepe.</p>
+	</div>
 
+	<div class="container">
+		<h2>Les derniers biens</h2>
+		<div class="row flex">
+			{% for property in properties %}
+				<div class="col-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{ property.title }}</a>
+							</h5>
+							<p class="card-text">{{ property.city }}({{ property.postalCode }})</p>
+							<div class="text-primary" style="font-weight: bold;font-size: 2rem;">{{ property.getFormatedPrice }}
+								DT
+							</div>
+						</div>
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
 	</div>
 
 
