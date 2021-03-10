@@ -47,6 +47,7 @@ class AdminPropertyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($property);
             $this->em->flush();
+            $this->addFlash('success', 'Bien crée avec succés');
             return $this->redirectToRoute('admin.property.index');
         }
 
@@ -57,7 +58,7 @@ class AdminPropertyController extends AbstractController
     }
 
     /**
-     * @Route("/admin/property/{id}", name="admin.property.edit")
+     * @Route("/admin/property/{id}", name="admin.property.edit", methods="GET|POST")
      */
     public function edit(Property $property, Request $request)
     {
@@ -66,6 +67,7 @@ class AdminPropertyController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
+            $this->addFlash('success', 'Bien modifier avec succés');
             return $this->redirectToRoute('admin.property.index');
         }
 
@@ -75,7 +77,16 @@ class AdminPropertyController extends AbstractController
         ]);
     }
 
-    public function delete()
+    /**
+     * @Route("/admin/property/{id}", name="admin.property.delete", methods="DELETE")
+     */
+    public function delete(Property $property, Request $request)
     {
+        if ($this->isCsrfTokenValid('delete' . $property->getId(), $request->get('_token'))) {
+            $this->em->remove($property);
+            $this->em->flush();
+            $this->addFlash('success', 'Bien supprimé avec succés');
+        }
+        return $this->redirectToRoute('admin.property.index');
     }
 }
