@@ -7,7 +7,11 @@
 	<div class="jumbotron">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8"></div>
+				<div class="col-md-8">
+					{% if property.filename %}
+						<img src="{{ vich_uploader_asset(property, 'image') }}" alt="" class="card-img-top" style="width:100%;height:auto;">
+					{% endif %}
+				</div>
 				<div class="col-md-4">
 					<h1>{{ property.title }}</h1>
 					<h2>{{ property.rooms }}
